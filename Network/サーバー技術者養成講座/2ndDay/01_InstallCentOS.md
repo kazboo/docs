@@ -69,11 +69,9 @@ docker stop [CONTAINER]
 
 ## net-tools
 
-* net-tools系のコマンドは標準でインストールされなくなった  
-* そのためifconfigがnot found
-
 * yumでインストール
-```
+
+``` cmd
 yum isntall net-tools
 ```
 
