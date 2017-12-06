@@ -38,12 +38,15 @@
 
 * Windows同様ファイル・システムと呼ばれるツリー構造[WIP]
 
-![ディレクトリ構造](./img/DirectoryStructure.svg)
+  ![ディレクトリ構造](./img/DirectoryStructure.svg)
 
 * 参考
   * <https://www.linuxmaster.jp/linux_skill/2010/02/06linux.html>
 
 ## UNIXコマンド/シェルスクリプト
+
+* シェル
+  * <http://www.cc.kyoto-su.ac.jp/~hirai/text/shell.html#pipe>
 
 ## telnet/vi/ftpの併用の練習
 
@@ -53,3 +56,5 @@
 * ワークステーション
 * GNU(グヌー、グニュ)
 * GPL
+* マウント
+  * <http://kazmax.zpp.jp/linux_beginner/mount_hdd.html#ah_4>
