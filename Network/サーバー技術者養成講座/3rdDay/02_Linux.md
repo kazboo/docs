@@ -55,6 +55,8 @@
 * ディストリビューション
 * ワークステーション
 * GNU(グヌー、グニュ)
+  * 1984年に設立されたフリーソフトウェア組織
 * GPL
 * マウント
   * <http://kazmax.zpp.jp/linux_beginner/mount_hdd.html#ah_4>
+  * <https://www.ibm.com/developerworks/jp/linux/library/l-lpic1-104-3/index.html>
