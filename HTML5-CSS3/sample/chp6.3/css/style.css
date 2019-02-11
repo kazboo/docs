@@ -1,0 +1,92 @@
+@charset "utf-8";
+
+html {
+    font-size: 16px;
+}
+
+
+
+.subnavi ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+
+
+.subnavi2 ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.subnavi2 a {
+    /* 背景画面とテキストが被らないように */
+    padding-left: 1rem;
+    background: url(../images/list.png) no-repeat left 0 top 5px;
+    color: #1864b9;
+    text-decoration: none;
+}
+
+.subnavi2 a:hover {
+    color: #0f3f74;
+    text-decoration: underline;
+}
+
+
+
+.sidebar {
+    padding: 8px;
+    border: 1px solid #ccc;
+    width: 300px;
+}
+
+.subnavi3 {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.subnavi3 li {
+    overflow: hidden;
+    margin: 1em 0 1em 0;
+}
+
+.subnavi3 .thumb {
+    float: left;
+    width: 100px;
+}
+
+.subnavi3 .summary {
+    margin: 0 0 0 108px;
+}
+
+.subnavi3 a {
+    text-decoration: none;
+}
+
+
+
+.breadcrumb ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.breadcrumb li {
+    display: inline;
+}
+
+.breadcrumb li::after {
+    content: "≫";
+    color: #999;
+}
+
+.breadcrumb li:last-child::after{
+    content: none;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #1864b9;
+}

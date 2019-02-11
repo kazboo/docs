@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta
+        charset="utf-8">
+    <meta
+        name="description"
+        content="概要です">
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+    <title>
+        Sample Title
+    </title>
+</head>
+
+<body>
+    <!--
+        デフォルトCSSのキャンセル
+
+        ul, olのデフォルトCSS
+        * list-style-typeプロパティが適用されていて、項目の先頭にリストマーク、番号が表示される
+        * 余白を持たせるために、padding, marginプロパティが適用されている
+    -->
+    <div class="subnavi">
+        <ul>
+            <li>
+                <a href="support/">
+                    サポート
+                </a>
+            </li>
+            <li>
+                <a href="price/">
+                    プライスリスト
+                </a>
+            </li>
+            <li>
+                <a href="faq/">
+                    よくある質問
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!--
+        サブナビゲーションの先頭に画像を表示させる典型的なCSS
+
+        1. 左パディングを設けて、画像が表示できるエリアを確保する
+        2. 背景画像を適用する
+    -->
+    <div class="subnavi2">
+        <ul>
+            <li>
+                <a href="support/">
+                    サポート
+                </a>
+            </li>
+            <li>
+                <a href="price/">
+                    プライスリスト
+                </a>
+            </li>
+            <li>
+                <a href="faq/">
+                    よくある質問
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!--
+        「最近の記事」をリスト化する
+
+        ニュースサイトやブログなどのサイドバーにある、「最近の記事」や「人気の記事」などの例
+        * 記事のタイトルと関連するサムネイルがあり、比較的複雑な構造をしている。
+        * テキストだけでない情報を整理するのにも、liが使われる。
+    -->
+
+    <div class="sidebar">
+        <div class="recent">
+            <h3>最近の記事</h3>
+
+            <ul class="subnavi3">
+
+                <li>
+                    <a href="記事url1">
+                        <img
+                            src="./images/image1.png"
+                            width="100"
+                            height="100"
+                            alt=""
+                            class="thumb">
+                        <p
+                            class="summary">
+                            OSをアップデートして使いづらくなった？OSはアップデートすべきなのか検証！
+                        </p>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="記事url2">
+                        <img
+                            src="./images/image2.png"
+                            width="100"
+                            height="100"
+                            alt=""
+                            class="thumb">
+                        <p
+                            class="summary">
+                            お客様からご要望がおおかった「製品サポートの改善」。体制を刷新して、サポート内容を強化します
+                        </p>
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+
+    <!--
+        パンくずリスト
+    -->
+
+    <div class="breadcrumb">
+        <ol>
+            <li>
+                <a href="/">home</a>
+            </li>
+            <li>
+                <a href="/products/">製品リスト</a>
+            </li>
+            <li>
+                <a href="/products/">カメラレンズ</a>
+            </li>
+            <li>
+                広角レンズ
+            </li>
+        </ol>
+    </div>
+
+</body>
+</html>
