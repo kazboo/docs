@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+html {
+    font-size: 10px;
+}
+body {
+    /* 基準は1.5~1.8, 継承されるのでbodyで設定 */
+    line-height: 1.7;
+    /* ブラウザは1番目のものから順にコンピュータにインストールされているか調べ、最初に見つかったもので表示する */
+    font-family:
+        Consolas,
+        sans-serif;
+}
+h1 {
+    font-size: 1.8rem;
+}
+h2 {
+    font-size: 1.2rem;
+}
+/* aタグでかつhref属性がついている要素にスタイルが適用される(通常の状態) */
+a {
+    color: blueviolet;
+    /* 下線を消す */
+    text-decoration: none;
+}
+/* その要素にマウスポインタが重なっている(ホバー状態)時にスタイルが適用される */
+a:hover {
+    color: rgb(38, 126, 126);
+    /* 下線を出す */
+    text-decoration: underline;
+}
+/* その要素の上でマウスボタンがクリックされている(アクティブ状態)ときにスタイルが適用される */
+a:active {
+    color: coral;
+}
+a:hover img {
+    opacity: 0.5;
+}
+/* cf) https://saruwakakun.com/html-css/reference/change-before-after */
+a[target="_blank"]::after {
+    content: '';
+    display: inline-block;
+    width: 10px; 
+    height: 10px; 
+    background-image: url(../images/tab-new-480.png);
+    background-size: contain;
+    vertical-align: middle;
+}
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.thumbnail {
+    /* 画像リンクの有効範囲がウィンドウ幅いっぱいになるのを防ぐ */
+    display: inline-block;
+    width: 200px;
+}
+.webfont {
+    font-family:
+        'ZCOOL KuaiLe',
+        cursive;
+}
+.frame {
+    padding: 8px;
+    border: 1px solid transparent;
+}
+a:hover .frame {
+    border: 1px solid black;
+}

@@ -184,8 +184,163 @@
 
 ## 画像を表示する
 
+* alt属性とアクセシビリティ
+  * 画像の代わりに表示されるテキストを指定する
+    * 画像のリンク切れ等
+  * 視覚障碍者が利用するスクリーンリーダーはこのalt属性のテキストを読み上げる
+
+* オリジナルとは異なるサイズで表示する
+  * レスポンシブWebデザインでレイアウトを組む場合、レイアウトだけでなく画像サイズも伸縮させることがある
+  * CSSでwidth, height属性を無視して伸縮できる
+  * img-responsiveをclass属性に追加・削除するだけで切り替えられるため便利
+  ```html
+  <style>
+  .img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  </style>
+  <img
+    src="../images/img12.jpg"
+    width="300"
+    height="200"
+    alt="サンプル"
+    class="img-responsive">
+  ```
+  * サムネイル表示にも使える(CSSで200pxに固定)
+  ```html
+  <style>
+  .img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  .thumbnail {
+    width: 200px;
+  }
+  </style>
+  <div class="thumbnail">
+    <img
+      src="../images/12.jpg"
+      width="300"
+      height="200"
+      alt="サンプル"
+      class="img-resonsive">
+  </div>
+  ```
+
+  * 参考) display: block
+    * [【CSS】displayの使い方を総まとめ！inlineやblockの違いは？](https://saruwakakun.com/html-css/basic/display)
 
 
 ## 画像にリンクをつける
 
+* 画像の下にテキストを付け加える
+  ```html
+  <a href="http://studio947.net">
+    <div>
+      <img
+        src="../images/image0320.jpg"
+        width="300"
+        height="200"
+        alt="サンプル">
+    </div>
+    <p>サンプルテキスト</p>
+  </a>
+  ```
+
+* `<a>~</a>`に含めることができるコンテンツ
+  * HTML5ではどんな要素でも含められるようになった
+  * 以前はテキストを修飾するものだけ
+
+* 画像にホバーしたときに表示を変える
+  ```html
+  <style>
+  a:hover img {
+    opacity: 0.5;
+  }
+  </style>
+  ```
+
+* 子孫セレクタを使用するときは、必ずしもHTMLの構造をなぞる必要はない
+  ```html
+  <style>
+  a:hover div img {
+
+  }
+  * セレクタ数が少ないほうがHTMLに修正が入った時でも対応しやすい
+
+* opacity(オパシティ)プロパティ
+  * 0~1(0:完全に見えない、1:完全に不透明)
+
+* ホバーしたときに画像に枠線をつける
+  ```html
+  <style>
+  .frame {
+    padding: 8px;
+    border: 1px solid transparent;
+  }
+  a:hover .frame {
+    border: 1px solid #ccc;
+  }
+  </style>
+  <img src="../../images/image0320.jpg"
+    width="396"
+    height="292"
+    alt="積み木"
+    class="frame">
+  ```
+
 ## 画像にテキストを回り込ませる
+
+* 画像にテキストを回り込ませることは少なくなった
+  * しかしニュースサイトでは多く採用されている
+
+* 実用的な回り込みの方法
+  ```html
+  <style>
+  p {
+    margin: 0 0 1em 0;
+  }
+  .float-box {
+    float: left;
+    margin-right: 1em;
+    margin-botton: 0.5em;
+    vertical-align: baseline;
+  }
+  .float-clear {
+    overflow: hidden;
+  }
+  </style>
+  <body>
+    <!-- 回り込みを解除するための親要素 -->
+    <div class="float-clear">
+      <!-- テキストコンテンツが回り込む要素 -->
+      <div class="float-box">
+        <!-- 画像コンテンツ -->
+        <img
+          src="../../images/orangedrip.png"
+          width="157"
+          height="140"
+          alt="">
+      </div>
+      <!-- テキストコンテンツ -->
+      <p>
+        hoge hoge
+      </p>
+    </div>
+  </body>
+  ```
+
+* 回り込みを実現するfloatプロパティ
+  * `left` このスタイルが適用された要素は左に配置され、テキストはその周りに回り込む
+  * `right` 右に配置
+  * `none` 回り込まない。レスポンシブWebでデザインで使うことがある
+
+* 回り込みを解除する`overflow: hidden`
+  * `いったんどこかの要素にfloatを設定すると、後続の要素は回り込み続けるため、レイアウトが崩れる原因になり危険`
+    * 設定した回り込みは、必ずどこかで解除する
+  * `clear`プロパティを使うのが基本的だが、実践レベルのマークアップには向かないため、あまり使用されない
+    * その代わりに、`回り込みを解除するための親要素`に`overflow: hidden`を適用する
+    * `本来別の用途のプロパティ`。CSS仕様上解除できることから、広く使われている

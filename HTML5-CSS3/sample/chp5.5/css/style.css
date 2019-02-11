@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+p {
+    margin: 0 0 1em 0;
+}
+
+.float-box {
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 0.5em;
+    vertical-align: baseline;
+}
+
+.float-clear {
+    overflow: hidden;
+}
