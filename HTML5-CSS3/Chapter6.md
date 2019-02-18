@@ -283,3 +283,95 @@
     * １つの設定につき１つのプロパティ
       * ex)padding-top, padding-left
   * 好きなほうを使ってよい（一般的には記述量が少なくなるショートハンドが使われることが多い)
+
+
+## パディング、ボーダーの設定
+
+* ボックスに枠線をつける
+  ```html
+  <style>
+  .item {
+      /* ここ */
+      border: 1px solid #cccccc;
+      width: 300px;
+  }
+  .item h3 {
+      margin: 0.5em 0 0.5em 0;
+      font-size: 16px;
+  }
+  .item p {
+      margin: 0;
+      font-size: 14px;
+  }
+  </style>
+  </head>
+  <body>
+      <div class="item">
+          <img src="../../images/img0907.jpg" width="300" height="300" alt="">
+          <h3>限定　無人島探検チャーター便</h3>
+          <p>ほげ</p>
+      </div>
+  </body>
+  ```
+
+* borderプロパティ
+  ```css
+  border: 太さ 線の形状 色;
+  ```
+  * 太さは単位が必要、pxがほとんど
+  * 線の形状
+    * none：太さを指定しても確保されない
+    * dotted：点線、四辺だと角が汚くなるので、一般的には一辺に適用するときに使う
+    * dashed：長めの点線、四辺だと角が汚くなるので、一般的には一辺に適用するときに使う
+    * solid：実践
+    * double：二重線
+
+* borderを区切り線のように使う
+  ```css
+  .item {
+      border-right: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc;
+      width: 300px;
+  }
+  ```
+
+* borderの全プロパティ
+  * border-right
+  * border-left
+  * border-top
+  * border-bottom
+  * border
+
+* コンテンツと枠線の間にパディングを設ける
+  * ボーダーだけを設定しても、コンテンツとの間にスペースがないので見た目が美しくない
+  * paddingプロパティでスペースを作る
+  ```css
+  .item {
+      border: 1px solid #ccc;
+      padding: 8px;
+      width: 300px;
+  }
+  ```
+
+* paddingプロパティ
+  ```css
+  padding: 上 右 下 左;
+  ```
+  * 時計回り
+  * 省略できる
+    ```css
+    /* [上右下左] */
+    padding: 8px;
+    /* [上下]　[右左] */
+    padding: 8px 4px;
+    /* [上] [右左] [下] */
+    padding: 8px 4px 6px;
+    /* [上] [右] [下] [左] */
+    padding: 8px 4px 6px 2px;
+    ```
+  * borderプロパティ同様
+    * padding-top
+    * padding-right
+    * padding-bottom
+    * padding-left
+    * padding
