@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <meta
+        charset="utf-8">
+    <meta
+        name="description"
+        content="概要サンプル">
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+    <title>
+        タイトルサンプル
+    </title>
+
+</head>
+
+<body>
+
+    <!-- ボックスを縦に並べる -->
+    <div
+        class="item">
+
+        <img
+            src="./images/background.jpg"
+            width="300"
+            alt="sample1">
+        <h3>
+            鑑定、無人島探検チャーター
+        </h3>
+        <p>
+            無人島の八丈小島に上陸するツアーです。
+        </p>
+
+    </div>
+
+    <div
+        class="item">
+        
+        <img
+            src="./images/background.jpg"
+            width="300"
+            alt="sample1">
+        <h3>
+            東京の下町訪問
+        </h3>
+        <p>
+            IoTで生まれ変わる街工場と銭湯絵を探訪する下町見学ツアー
+        </p>
+
+    </div>
+
+    <!--
+        ボックスを横に並べる
+        * 左右に隣接するマージンは畳み込まれない > 上下と左右でマージンが変わってしまう
+        * 左マージンだけを設定し、右マージンを0にすることで、上下左右のマージンを揃える
+    -->
+    <div
+        class="wrapper"><!-- ラッパーとなるdivを追加 -->
+        <div
+            class="item-horizontal">
+            <img
+                src="./images/background.jpg"
+                width="300"
+                alt="sample1">
+            <h3>
+                鑑定、無人島探検チャーター
+            </h3>
+            <p>
+                無人島の八丈小島に上陸するツアーです。
+            </p>
+        </div>
+        <div
+            class="item-horizontal">
+            <img
+                src="./images/background.jpg"
+                width="300"
+                alt="sample1">
+            <h3>
+                東京の下町訪問
+            </h3>
+            <p>
+                IoTで生まれ変わる街工場と銭湯絵を探訪する下町見学ツアー
+            </p>
+        </div>
+    
+    </div>
+
+</body>
+
+</html>
