@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+blockquote {
+    border-radius: 10px;
+    margin: 0;
+    padding: 32px;
+    width: 300px;
+    background:
+        url(../images/blockquote-left.png) no-repeat left 10px top 20px,
+        url(../images/blockquote-right.png) no-repeat right 10px bottom 20px,
+        #ddd;
+}

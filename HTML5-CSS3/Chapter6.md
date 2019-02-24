@@ -441,3 +441,85 @@
     * `本来別の用途のプロパティ`。CSS仕様上解除できることから、広く使われている
   * [参考:CSS 回り込みと解除のサンプル(floatとclear)](https://itsakura.com/css-float-clear)
     * `clearfix` が`overflow:hidden` と同様の見た目になる(使い方も同様？)
+
+## ボックスのデザインを調整する
+
+### ボックスを背景色で塗りつぶす
+
+* background-colorプロパティ
+  ```css
+  background-color: #fafafa;
+  ```
+  パディング領域内に背景色をつける
+
+### ボックスを背景画像で塗りつぶす
+
+* backgroundプロパティ
+  ```css
+  background: url(./images/hoge.png) #fafafa;
+  ```
+  パティング内を画像でぬりつぶす
+
+* 背景の指定方法
+  ```css
+  background: 1 2 3 4 5
+  ```
+  * 1: 背景画像のパス(相対パスの場合、CSS or HTMLからのパス)
+    * background-image
+  * 2: 背景画像の繰り返し
+    * background-repeat
+    * 指定値
+      * repeat
+      * repeat-x
+      * repeat-y
+      * no-repeat
+  * 3: 背景画像の表示される位置(no-repeatの場合)
+    * background-position
+    * 指定値
+      * 横方向 縦方向
+      ```
+      left 20px top 50px
+      center center
+      right bottom
+
+            left   center   right
+      top   +--------------------
+            |
+      center|
+            |
+      bottom|
+      ```
+  * 4: 背景画像の固定
+    * background-attachment
+    * 指定値
+      * fixed
+      * scroll
+  * 5: 背景色
+    * background-color
+    * 指定値
+      * 色
+      * transparent(透明、親要素の色)
+
+### 複数の背景画像を使う
+
+* ex) [複数の背景画像を指定する](./sample/chp6.8/sample.html)
+
+* 参考) [CSSで作る！魅力的な引用デザインのサンプル](https://saruwakakun.com/html-css/reference/blockquote)
+
+* blockquateタグ
+  ```html
+  <blockquate cite="引用元ページのURL">
+      引用するコンテンツ
+  </blockquate>
+  ```
+  * 引用を意味するタグ
+  * 引用したコンテンツを表示するのに使用する
+  * 使わずにほかのサイトから引用した場合、検索エンジンに登用しているとみなされる場合がある
+    * 検索順位が下がったり、検索結果から除外されたりする
+
+### ボックスの角を丸くする
+
+* border-radiusプロパティ
+  ```css
+  border-radius: 左上 右上 右下 左下;
+  ```
