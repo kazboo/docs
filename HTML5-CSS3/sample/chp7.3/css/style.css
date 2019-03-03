@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+table {
+    border-collapse: collapse;
+}
+.table-wrapper {
+    overflow-x: scroll;
+}
+.price {
+    width: 1000px;
+}
+.price caption {
+    text-align: left;
+}
+.price tr:nth-child(odd) {
+    background: #999;
+}
+.price tr:nth-child(even) {
+    background: #ccc;
+}
+.price th, td {
+    border: 1px solid #ccc;
+}

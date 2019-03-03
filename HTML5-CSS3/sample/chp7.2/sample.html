@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <meta
+        name="description"
+        content="hoge">
+    <meta
+        charset="utf-8">
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+    <title>sample7.2</title>
+</head>
+<body>
+    <!-- 見出しせると通常セルを関連付ける　その1 -->
+    <table>
+        <caption>caption</caption>
+        <tr>
+            <th id="row1">row-1</th>
+            <th id="row2">row-2</th>
+            <th id="row3">row-3</th>
+        </tr>
+        <tr>
+            <td headers="row1">d-1</td>
+            <td headers="row2">d-2</td>
+            <td headers="row3">d-3</td>
+        </tr>
+        <tr>
+            <td headers="row1">d-1</td>
+            <td headers="row2">d-2</td>
+            <td headers="row3">d-3</td>
+        </tr>
+    </table>
+    <!-- 見出しせると通常セルを関連付ける　その2 -->
+    <table>
+        <caption>caption</caption>
+        <tr>
+            <th scope="col">row-1</th>
+            <th scope="col">row-2</th>
+            <th scope="col">row-3</th>
+        </tr>
+        <tr>
+            <td>d-1</td>
+            <td>d-2</td>
+            <td>d-3</td>
+        </tr>
+        <tr>
+            <td>d-1</td>
+            <td>d-2</td>
+            <td>d-3</td>
+        </tr>
+    </table>
+</body>
+</html>

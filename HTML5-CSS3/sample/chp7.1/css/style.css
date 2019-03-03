@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+html {
+    font-size: 16px;
+}
+body {
+    line-height: 1.7;
+    font-family: 'Consolas', 'sans-selif';
+}
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #8fbac8;
+    padding: 8px;
+}
