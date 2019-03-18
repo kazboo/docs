@@ -197,6 +197,19 @@
   * white-spaceプロパティ
     * 要素内のホワイトスペースをどのように扱うか設定する
 
+* コンボボックス
+  * プルダウンメニューとテキストフィールドを合わせたUIで、ユーザーがドロップダウンの選択による入力も、自由入力もできるフィールド
+  ```html
+  <input type="text list="noodles" id="combobox">
+  <datalist id="noodles">
+      <option value="ラーメン"></option>
+      <option value="日本そば"></option>
+      <option value="つけ麺"></option>
+      <option value="油そば"></option>
+      <option value="焼きそば"></option>
+  </datalist>
+  ```
+
 ### ラジオボタンとチェックボックス
 
 * ２つ以上の選択項目を用意するので、pではなく、ul、liでマークアップするのがいい
@@ -392,4 +405,9 @@
   <a href="#" class="btn-circle-stitch">BUTTON</a>
   ```
 
+* フローティング操作ボタン(FAB, Floating Action Button）
+  * https://saruwakakun.com/html-css/material/button
+
 ## 標準的なフォームの例
+
+サンプル参照

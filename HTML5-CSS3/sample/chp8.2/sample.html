@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <meta
+        charset="utf-8">
+    <meta
+        name="description"
+        content="sample">
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+    <title>hoge</title>
+</head>
+
+<body>
+    <form
+        action="#"
+        method="POST"
+        id="contract">
+    
+        <p>
+            <label for="name-field">name</label>
+            <br>
+            <input
+                type="text"
+                name="name"
+                id="name-field">
+        </p>
+        <p>
+            <ul class="horizontal input-group">
+                <li>
+                    <input type="radio" name="gender" id="male" value="0" checked>
+                    <label for="male"">male</label>
+                </li>
+                <li>
+                    <input type="radio" name="gender" id="female" value="1">
+                    <label for="female">female</label>
+                </li>
+            </ul>
+        </p>
+        <p>
+            <label for="date-field">Date</label>
+            <br>
+            <select
+                name="month"
+                id="month">
+                <option value="" selected>月</option>
+                <option value="01">01</option>
+                <option value="12">12</option>
+            </select>
+            /
+            <select
+                name="year"
+                id="year">
+                <option value="" selected>年</option>
+                <option value="2015">2015</option>
+                <option value="2020">2020</option>
+            </select>
+        </p>
+        <p>
+            <label for="subject-field">Subject</label>
+            <br>
+            <input
+                type="text"
+                list="subjects"
+                name="subjects"
+                id="combobox">
+            <datalist
+                id="subjects">
+                <option value="質問"></option>
+                <option value="バグ報告"></option>
+            </datalist>
+        </p>
+        <p>
+            <label for="email-field">e-mail</label>
+            <br>
+            <input
+                type="email"
+                name="email"
+                id="email-field">
+        </p>
+        <p>
+            <label for="comment">contact</label>
+            <br>
+            <textarea
+                name="comment"
+                id="comment"></textarea>
+        </p>
+        <p class="submit-p">
+            <input
+                type="submit"
+                value="send"
+                id="submit"
+                name="submit">
+        </p>
+    </form>
+</body>
+
+</html>
