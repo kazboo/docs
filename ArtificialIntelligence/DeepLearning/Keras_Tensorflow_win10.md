@@ -62,7 +62,42 @@ tf.Tensor(-1074.4451, shape=(), dtype=float32)
   C:\Users\kazbo\Anaconda3\envs\keras
   ```
 
-* 上記設定後pylintのインストール通知がでるのでそのままインストールする
+* 上記設定後pylintのインストール通知がでるのでそのままインストールする(`install`をクリック)
+  ```bash
+  $ C:/Users/kazbo/Anaconda3/envs/keras/python.exe -m pip install -U pylint
+  Collecting pylint
+  Downloading https://files.pythonhosted.org/packages/60/c2/b3f73f4ac008bef6
+    100% |████████████████████████████████| 768kB 3.3MB/s
+  Collecting astroid<3,>=2.2.0 (from pylint)
+  Downloading https://files.pythonhosted.org/packages/d5/ad/7221a62a2dbce5c3
+    100% |████████████████████████████████| 194kB 4.9MB/s
+  Collecting mccabe<0.7,>=0.6 (from pylint)
+  Downloading https://files.pythonhosted.org/packages/87/89/479dc97e18549e21
+  Collecting isort<5,>=4.2.5 (from pylint)
+  Downloading https://files.pythonhosted.org/packages/b6/89/3137d13dd30a0d06
+    100% |████████████████████████████████| 51kB 3.9MB/s
+  Collecting colorama; sys_platform == "win32" (from pylint)
+  Downloading https://files.pythonhosted.org/packages/4f/a6/728666f39bfff171
+  Collecting lazy-object-proxy (from astroid<3,>=2.2.0->pylint)
+  Downloading https://files.pythonhosted.org/packages/7c/71/e7a10cab32c9fc37
+  Collecting wrapt (from astroid<3,>=2.2.0->pylint)
+  Downloading https://files.pythonhosted.org/packages/67/b2/0f71ca90b0ade7fa
+  Requirement already satisfied, skipping upgrade: six in c:\users\kazbo\anaco
+  Collecting typed-ast>=1.3.0; implementation_name == "cpython" (from astroid<
+  Downloading https://files.pythonhosted.org/packages/5e/43/de06013ff66c70c4
+    100% |████████████████████████████████| 163kB 2.6MB/s
+  Building wheels for collected packages: wrapt
+  Building wheel for wrapt (setup.py) ... done
+  Stored in directory: C:\Users\kazbo\AppData\Local\pip\Cache\wheels\89\67\4
+  Successfully built wrapt
+  Installing collected packages: lazy-object-proxy, wrapt, typed-ast, astroid,, typed-ast, astroid, mccabe, isort, colorama, pylint  
+  Anaconda3\envs\keras\
+  The script isort.exe is installed in 'C:\Users\kazbo\fer to suppress this Anaconda3\envs\keras\Scripts' which is not on PATH.    
+  d symilar.exe are ins
+  Consider adding this directory to PATH or, if you prefer to suppress this fer to suppress this warning, use --no-warn-script-locart-4.3.15 lazy-objecttion.
+  The scripts epylint.exe, pylint.exe, pyreverse.exe anxd symilar.exe are installed in 'C:\Users\kazbo\Anaconda3\envs\keras\Scripts' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.tion.                                                  rt-4.3.15 lazy-objectSuccessfully installed astroid-2.2.5 colorama-0.4.1 isort-4.3.15 lazy-object-proxy-1.3.1 mccabe-0.6.1 pylint-2.3.1 typed-ast-1.3.1 wrapt-1.11.1
+  ```
 
 ## チュートリアル実行
 
@@ -89,4 +124,36 @@ tf.Tensor(-1074.4451, shape=(), dtype=float32)
   ```
 
 * vscode上でデバッグ実行
+  ```bash
+  $ cd "c:\Users\kazbo\workspace\python-sandbox" ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 "C:\Users\kazbo\Anaconda3\envs\keras\python.exe" "c:\Users\kazbo\.vscode\extensions\ms-python.python-2019.2.5558\pythonFiles\ptvsd_launcher.py" --default --client --host localhost --port 53990 "c:\Users\kazbo\workspace\python-sandbox\test.py"
+  WARNING:tensorflow:From C:\Users\kazbo\Anaconda3\envs\keras\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+  Instructions for updating:
+  Colocations handled automatically by placer.
+  WARNING:tensorflow:From C:\Users\kazbo\Anaconda3\envs\keras\lib\site-packages\tensorflow\python\keras\layers\core.py:143: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+  Instructions for updating:
+  Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+  2019-03-19 12:00:10.524798: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX AVX2
+  2019-03-19 12:00:11.465160: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties:
+  name: GeForce GTX 1050 Ti with Max-Q Design major: 6 minor: 1 memoryClockRate(GHz): 1.2905
+  pciBusID: 0000:01:00.0
+  totalMemory: 4.00GiB freeMemory: 3.30GiB
+  2019-03-19 12:00:11.472031: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+  2019-03-19 12:00:12.103266: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+  2019-03-19 12:00:12.107939: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0
+  2019-03-19 12:00:12.110299: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N
+  2019-03-19 12:00:12.112784: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 3006 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1050 Ti with Max-Q Design, pci bus id: 0000:01:00.0, compute capability: 6.1)
+  Epoch 1/5
+  2019-03-19 12:00:12.632474: I tensorflow/stream_executor/dso_loader.cc:152]
+  successfully opened CUDA library cublas64_100.dll locally
+   32/60000 [..............................] - ETA: 12:52 - loss: 2.4122 - a
+   :
+   60000/60000 [==============================] - 8s 139us/sample - loss: 0.2177 - acc: 0.9360
+
+  :
+
+  Epoch 5/5
+   32/60000 [..............................] - ETA: 11s - loss: 0.0891 - acc
+   :
+   10000/10000 [==============================] - 1s 80us/sample - loss: 0.0647 - acc: 0.9824
+  ```
 
