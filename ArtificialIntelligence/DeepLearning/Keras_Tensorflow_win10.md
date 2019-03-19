@@ -4,6 +4,8 @@
 
 [Keras / TensorFlow-GPU環境の作成（Windows編）](https://dev.infohub.cc/setup_keras_tensorflow_gpu/)
 
+* Anaconda Promptで作業をおこなう
+
 ### エラー対応
 
 #### 仮想環境をactivate後、condaコマンドを実行するとcommand not found
@@ -156,4 +158,28 @@ tf.Tensor(-1074.4451, shape=(), dtype=float32)
    :
    10000/10000 [==============================] - 1s 80us/sample - loss: 0.0647 - acc: 0.9824
   ```
+
+## 用語
+
+[TensorFlowとKerasを比較](https://www.ossnews.jp/compare/TensorFlow/Keras)
+
+### Tensorflow
+
+* GoogleのDeep Learningライブラリ
+* 特徴
+  * データフローグラフによる柔軟性
+  * ローレベルオペレータも手書きできる汎用性
+  * 高いパフォーマンス、スケーラビリティ
+  * 研究レベルから実プロダクトまで扱える効率性
+
+### Keras
+
+* OSSのニューラルネットワークライブラリ
+* バックエンドにTensorFlowを利用するディープラーニングライブラリラッパー
+* 特徴
+  * より高いレベルでより直感的な抽象化を提供しているため、NN設計を容易に行える
+  * 以下のバックエンドをサポートする
+    * TensorFlow(Google)
+    * MS Cognitive Toolkit(Microsoft)
+    * Theano
 
