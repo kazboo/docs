@@ -1,16 +1,16 @@
 # Keras / TensorFlow-GPU環境の作成(Windows)
 
-## 参考
+## 環境構築
 
 [Keras / TensorFlow-GPU環境の作成（Windows編）](https://dev.infohub.cc/setup_keras_tensorflow_gpu/)
 
-## 備考
+### エラー対応
 
-### 仮想環境をactivate後、condaコマンドを実行するとcommand not found
+#### 仮想環境をactivate後、condaコマンドを実行するとcommand not found
 
 仮想環境作成後にいったんanaconda promptを再起動し、再activateでいけた
 
-### tensorflow-gpuインストール後の確認コマンド実行時、CUDA driver version is insufficientエラー
+#### tensorflow-gpuインストール後の確認コマンド実行時、CUDA driver version is insufficientエラー
 
 ```bash
 (keras) C:\Users\kazbo>python -c "import tensorflow as tf; tf.enable_eager_execution(); print(tf.reduce_sum(tf.random_normal([1000, 1000])))"
@@ -43,3 +43,50 @@ totalMemory: 4.00GiB freeMemory: 3.30GiB
 tf.Tensor(-1074.4451, shape=(), dtype=float32)
 ```
 動いた。
+
+## TensorflowチュートリアルをVSCodeで動かす
+
+[Tensorflow Tutorial](https://www.tensorflow.org/tutorials)
+
+### VSCode
+
+[Windows10環境にAnaconda+Visual Studio CodeでPython環境を構築](https://qiita.com/Atupon0302/items/ee3303629ce0b2ae58d7)
+
+* `conda path`も一応指定
+  ```
+  C:\Users\kazbo\Anaconda3\Scripts
+  ```
+
+* `python path`を作成したkeras仮想環境に変更
+  ```
+  C:\Users\kazbo\Anaconda3\envs\keras
+  ```
+
+* 上記設定後pylintのインストール通知がでるのでそのままインストールする
+
+## チュートリアル実行
+
+* Tutorialのコードをtest.pyとして保存
+  ```python
+  import tensorflow as tf
+  mnist = tf.keras.datasets.mnist
+
+  (x_train, y_train), (x_test, y_test) = mnist.load_data()
+  x_train, x_test = x_train / 255.0, x_test / 255.0
+
+  model = tf.keras.models.Sequential([
+      tf.keras.layers.Flatten(input_shape=(28, 28)),
+      tf.keras.layers.Dense(512, activation=tf.nn.relu),
+      tf.keras.layers.Dropout(0.2),
+      tf.keras.layers.Dense(10, activation=tf.nn.softmax)
+  ])
+  model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+  model.fit(x_train, y_train, epochs=5)
+  model.evaluate(x_test, y_test)
+  ```
+
+* vscode上でデバッグ実行
+
