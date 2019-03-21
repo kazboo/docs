@@ -3,40 +3,48 @@
 body {
     margin: 0;
 }
-
-/*
-ウィンドウの端にくっつかないようにする
-*/
 .container {
+    /* 親要素の中央に配置する */
     margin: 0 auto 0 auto;
-    padding: 0 16px 0 16px;
     max-width: 1000px;
+    /* ウィンドウの端にくっつかないようにする */
+    padding: 0 16px 0 16px;
+}
+/* フレックスボックスの親要素 */
+section .container {
+    display: flex;
+    /* フレックスアイテムは縦に並ぶ */
+    flex-flow: column;
 }
 
 /*
 ナビゲーション部分とメイン部分のスペースを空けるには、
 メインに上マージンを設定する
-*/
 nav {
     margin-bottom: 20px;
 }
 footer {
     margin-top: 20px;
 }
+*/
+
 /*
 各パートにパディング、背景、テキスト色などを指定する
 <div class="container">の子要素に指定する
 */
 .header-inner {
+    /* 周囲にスペースを設ける */
     padding: 10px 10px 0 10px;
     background: #bad7f5;
 }
 .nav-inner {
+    /* 周囲にスペースを設ける */
     padding: 10px 10px 0 10px;
     color: #fff;
     background: #0086f9;
 }
-.main-inner {
+main {
+    /* 周囲にスペースを設ける */
     padding: 20px 10px 20px 10px;
     background: #fffde3;
     /*
@@ -45,13 +53,41 @@ footer {
     */
     height: 400px;
 }
-.sidebar-inner {
+.sidebar {
+    /* 周囲にスペースを設ける */
     padding: 20px 10px 20px 10px;
     background: #c0f5b9;
 }
 .footer-inner {
+    /* 周囲にスペースを設ける */
     padding: 20px 16px 10px 16px;
     background: #bad7f5;
+}
+
+/*
+メディアクエリ(条件を満たす場合のみ、CSSを適用する)
+画面サイズを条件にしてレイアウトを変更するのに使われる。
+レスポンシブWebデザインを実現するための重要な機能。
+
+ウィンドウの最小値が768pxの時適用される。
+*/
+@media only screen and (min-width: 768px) {
+    /* フレックスボックスの親要素 */
+    section .container {
+        /* フレックスアイテムは横に並ぶ */
+        flex-flow: row;
+    }
+    /* 拡大・縮小分の幅をmain:sidebar=1:0になるように設定 */
+    main {
+        /* フレックスアイテムの幅を設定(伸びる割合, 縮む割合, 非拡大・縮小時の幅) */
+        flex: 1 1 auto;
+        order: 2;
+    }
+    .sidebar {
+        /* 伸縮したときにサイドバー幅は固定 */
+        flex: 0 0 340px;
+        order: 1;
+    }
 }
 
 /* わかりやすくするために適用しているCSS */

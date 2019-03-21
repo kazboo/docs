@@ -17,6 +17,7 @@
     <link
       rel="stylesheet"
       href="css/style.css">
+    <!-- ブラウザ間のちょっとした表示誤差を調整するためのライブラリ -->
     <link
       rel="stylesheet"
       href="css/normalize.css">
@@ -44,13 +45,16 @@
     </nav>
 
     <section>
+        <!-- mainとsidebarを横に並べるには、それぞれを囲む親要素が必要-->
         <div class="container">
             <main>
-                <div class="main-inner">
-                    <!-- コンテンツの要素 -->
-                    <p class="main-title">Main</p>
-                </div><!-- /.main-inner -->
+                <!-- コンテンツの要素 -->
+                <p class="main-title">Main</p>
             </main>
+            <aside class="sidebar">
+                <!-- サイドバーの要素 -->
+                sidebar
+            </aside><!-- /.sidebar -->
         </div><!-- /.container -->
     </section>
 

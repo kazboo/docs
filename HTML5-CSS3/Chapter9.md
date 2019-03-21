@@ -171,6 +171,7 @@
 
 * ノーマライズCSS
   * 異なるブラウザ間のちょっとした表示誤差を調整してくれるライブラリ
+    * [CSSリセットとは異なる、Normalize.cssの特徴や使い方などの解説](https://coliss.com/articles/build-websites/operation/css/about-normalize-css.html)
   * ブラウザの表示の違いを気にせずにCSSをかけるようになる
   * 最近は、よりスマホ向けWebサイト構築に最適化した`サニタイズCSS`を使うこともある
   * [ノーマライズCSS](https://necolas.github.io/normalize.css/)
@@ -308,6 +309,12 @@
     * ボックスを横/縦に並べることが容易で、レスポンシブWebデザインと非常に相性がいい
     * 横に並んだボックスの高さを揃えることができる
     * ボックスの順序を入れ替えることができる
+  * [MDN:フレックスボックスの基本概念](https://developer.mozilla.org/ja/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
+
+* flexプロパティ
+  * 基本的な設定の仕方
+    * 伸縮するボックス(flexプロパティの1, 2番目の値が1)には`auto`を指定する
+    * 伸縮しないボックス(1, 2番目の値が0)には`その幅をpx, emで指定する(%は指定しない)
 
 * orderプロパティ
   * フレックスアイテムに設定するプロパティ
