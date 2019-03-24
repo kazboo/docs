@@ -64,12 +64,44 @@ main {
     background: #bad7f5;
 }
 
+/* ヘッダー部 */
+.hamburger {
+    border: none;
+    width: 50px;
+    height: 50px;
+    background: url(../images/hamburger.png) no-repeat;
+    background-size: contain;
+}
+
+/* ナビゲーション */
+.navbar {
+    display: none;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background: #565656;
+}
+
+.navbar li a {
+    display: block;
+    padding: 10px 8px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background: #fff;
+    color: #565656;
+}
+
+
+
 /*
 メディアクエリ(条件を満たす場合のみ、CSSを適用する)
 画面サイズを条件にしてレイアウトを変更するのに使われる。
 レスポンシブWebデザインを実現するための重要な機能。
 
-ウィンドウの最小値が768pxの時適用される。
+以下の場合、ウィンドウの最小値が768pxの時適用される。
 */
 @media only screen and (min-width: 768px) {
     /* フレックスボックスの親要素 */
@@ -83,10 +115,20 @@ main {
         flex: 1 1 auto;
         order: 2;
     }
-    .sidebar {
-        /* 伸縮したときにサイドバー幅は固定 */
-        flex: 0 0 340px;
+    .sidebar1 {
+        flex: 0 0 200px;
         order: 1;
+    }
+    .sidebar2 {
+        /* 伸縮したときにサイドバー幅は固定 */
+        flex: 0 0 250px;
+        order: 3;
+    }
+    .hamburgar {
+        display: none;
+    }
+    .navbar {
+        display: flex !important;
     }
 }
 

@@ -30,17 +30,34 @@
     <header>
         <div class="container">
             <div class="header-inner">
-                <!-- ヘッダーの要素 -->
-                <div class="logo">Header</div>
+                <!-- ナビゲーション開閉用 -->
+                <button
+                    class="hamburger"
+                    id="mobile-menu">
+                </button>
             </div><!-- /.header-inner -->
         </div><!-- /.container -->
     </header>
 
     <nav>
         <div class="container">
-            <div class="nav-inner">
-                ホーム　会社案内　製品案内　サポート　お問い合わせ
-            </div><!-- ./nav-inner -->
+            <ul class="navbar">
+                <li>
+                    <a href="#">ホーム</a>
+                </li>
+                <li>
+                    <a href="#">会社案内</a>
+                </li>
+                <li>
+                    <a href="#">製品案内</a>
+                </li>
+                <li>
+                    <a href="#">サポート</a>
+                </li>
+                <li>
+                    <a href="#">お問い合わせ</a>
+                </li>
+            </ul>
         </div><!-- ./container -->
     </nav>
 
@@ -51,10 +68,14 @@
                 <!-- コンテンツの要素 -->
                 <p class="main-title">Main</p>
             </main>
-            <aside class="sidebar">
+            <aside class="sidebar sidebar1">
                 <!-- サイドバーの要素 -->
-                sidebar
+                sidebar1
             </aside><!-- /.sidebar -->
+            <aside class="sidebar sidebar2">
+                <!-- サイドバーの要素 -->
+                sidebar2
+            </aside>
         </div><!-- /.container -->
     </section>
 
@@ -66,6 +87,7 @@
             </div><!-- /.footer-inner -->
         </div><!-- /.container -->
     </footer>
-    
+
+    <script src="./scripts/script.js"></script>
 </body>
 </html>
