@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <meta
+        charset="utf-8">
+
+    <meta
+        name="description"
+        content="jQuery: select all checkbox sample">
+
+    <title>jQuery: Select All Checkbox Sample</title>
+
+    <!-- boostrap(from official site) -->
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+    <!-- jQuery, jQuery UI(from Google Hosted Libraries) -->
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- my js -->
+    <script>
+    $(function() {
+
+        $('#allCheckAnchor').on('click', function() {
+            var target = $('#checkBoxList1 input[name=check]');
+
+            // 全チェックボックスの数を取得
+            var boxCountAll = target.length;
+            // チェックされているチェックボックスの数を取得(パフォーマンス的に:checkedセレクタを使うより良い)
+            var boxCountChecked = target.filter(':checked').length;
+
+            target.prop('checked',
+                boxCountChecked === boxCountAll ? false : true);
+
+        });
+
+        $('#allCheckCheckbox').click(function() {
+            var target = $('#checkBoxList2 input[name=check]');
+            target.prop('checked', this.checked);
+        });
+    });
+    
+    </script>
+
+    <style type="text/css">
+    ul {
+        padding-left: 8px;
+    }
+    li {
+        list-style-type: none;
+    }
+    </style>
+
+</head>
+<body>
+    <form action="#">
+        <!-- Anchorタイプ -->
+        <ul id="checkBoxList1">
+            <li>
+                <a
+                    class="btn btn-success"
+                    id="allCheckAnchor"
+                    href="#">all</a>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" name="check" checked>
+                    A
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" name="check">
+                    B
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" name="check">
+                    C
+                </label>
+            </li>
+        </ul>
+        
+        <!-- Checkboxタイプ -->
+        <ul id="checkBoxList2">
+            <li>
+                <label>
+                    <input
+                        type="checkbox"
+                        id="allCheckCheckbox">
+                    全選択
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" name="check" checked>
+                    A
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" name="check">
+                    B
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" name="check">
+                    C
+                </label>
+            </li>
+        </ul>
+
+    </form>
+</body>
+
+</html>

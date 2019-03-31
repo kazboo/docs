@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+    <meta
+        charset="utf-8">
+
+    <meta
+        name="description"
+        content="jQuery: fill in textbox">
+
+    <title>jQuery: Select All Checkbox Sample</title>
+
+    <!-- jQuery(from Google Hosted Libraries) -->
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- bootstrap 4(from official site) -->
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+    <!-- Font Awesome(bootstrap 4 からGlyphiconが同梱されなくなったため -->
+    <!-- 参考 https://www.tmp1024.com/programming/use-font-awesome-of-bootstrap/ -->
+    <link
+        rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous">
+
+    <!-- bootstrap datepicker(from cdnjs) -->
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css"
+        rel="stylesheet"
+        type="text/css" />
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+    
+    <!-- my js -->
+    <script>
+
+    $(function() {
+        $('.datepicker').datepicker({
+            clearBtn: true
+        });
+        $('#fillInBtn').on('click', function() {
+
+            var date = $('#fillInDateTextbox').val();
+
+            $('#textboxList input[name=date]').prop('value', date);
+        });
+    });
+
+    </script>
+
+    <style type="text/css">
+    ul {
+        padding-left: 0px;
+    }
+    li {
+        list-style-type: none;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+    div {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+    .wrapper {
+        max-width: 400px;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div class="input-group date datepicker" data-provide="datepicker">
+    
+            <input type="text" id="fillInDateTextbox" class="form-control">
+    
+            <div class="input-group-addon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+        </div>
+    
+        <div>
+            <a class="btn btn-primary" id="fillInBtn">fill in</a>
+        </div>
+        
+    </div>
+
+    <div class="wrapper">
+        <form action="#">
+            <ul id="textboxList">
+                <li>
+                    <input type="text" name="date" class="form-control">
+                </li>
+                <li>
+                    <input type="text" name="date" class="form-control">
+                </li>
+                <li>
+                    <input type="text" name="date" class="form-control">
+                </li>
+                <li>
+                    <input type="text" name="date" class="form-control">
+                </li>
+                <li>
+                    <input type="text" name="date" class="form-control">
+                </li>
+            </ul>
+        </form>
+    </div>
+
+</body>
+</html>
