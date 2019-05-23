@@ -592,5 +592,270 @@
     * 新しいインスタンスを生成
   * typeof
     * オペランドのデータ型を取得
+      * 配列、オブジェクト、ラッパーオブジェクトはいずれも`object`
+      ```javascript
+      var num = 1;
+      console.log(typeof num); // number
+      ```
   * void
     * 未定義値を返す
+
+## 2.4.7 演算子の優先順位と結合則
+
+### 結合則
+
+* 演算子を左から右、右から左いずれの方向で結合するか
+
+## 2.5 制御構文
+
+## 2.5.1 if命令
+
+* 紛らわしい
+  ```javascript
+  var x = 1;
+  var y = 2;
+  if (x === 1)
+    if (y === 1) console.log('変数x, yはともに1です');
+  else
+    console.log('変数xは1ではありません。');
+  
+  // '変数xは1ではありません。'　が表示される
+  ```
+
+## 2.5.2 switch命令
+
+* `同値演算子(===)`による多岐分岐
+* 同じような条件式を繰り返し記述しなくてもよい分、コードが読みやすくなる
+  ```javascript
+  switch(式) {
+    case 値1:
+      ...
+    case 値2:
+      ...
+    ...
+    default:
+      ...
+  }
+  ```
+* フォールスルー
+
+## 2.5.3 while命令
+
+* 後置判定、前置判定
+
+## 2.5.4 無限ループ
+
+* ブラウザに極端な負荷を与える
+
+## 2.5.5 for命令
+
+* カンマ演算子
+  ```javascript
+  for (var i = 1, j = 1; i < 5; i++, j++) {
+    console.log(i * j);
+  }
+  // 1, 4, 9, 16
+  ```
+  * ごく単純な場合に限る(多用すべきでない)
+
+## 連想配列(オブジェクト)の要素を順に処理する(for...in命令)
+
+* 構文
+  ```javascript
+  for (仮遠陬 in 連想配列) {
+    命令群
+  }
+  ```
+  * 仮変数に格納されるのが要素値そのものでないことに注意
+  ```javascript
+  var data = {
+    apple: 150,
+    orange: 100,
+    banana: 120
+  };
+
+  // dataのキー名を順に取り出し、変数keyにセットしながらループを繰り返す
+  for (var key in data) {
+    console.log(key + '=' + data[key]);
+  }
+  // apple=150
+  // orange=100
+  // banana=120
+  ```
+
+* 配列ではfor...in命令は利用しない(可能ではある)
+  ```javascript
+  var data = ['apple', 'orange', 'banana'];
+  Array.prototype.hoge = function() {}
+  for (var key in data) {
+    console.log(data[key]);
+  }
+  // 結果：apple, orange, banana, function(){}
+  ```
+
+* for...in命令では処理の順序も保証されない
+
+* 仮変数にはインデックス番号が格納されるだけなので、シンプルにはならない
+  * 値そのものではないので、かえって誤解を招く
+
+* 連想配列(オブジェクト)を操作するにとどめ、配列の列挙にはfor命令、もしくはfor...of命令を使用するべき
+
+* 初期化式で配列のサイズを取得する
+  ```javascript
+  var data = ['apple', 'orange', 'banana'];
+  // for (var i = 0; i < data.length; i++) {...} でもかける
+  for (var i = 0, len = data.length; i < len; i++) {
+    console.log(data[i]);
+  }
+  // 結果：apple, orange, bananaを順に出力
+  ```
+  * ループの都度、プロパティにアクセスしなければならないため、性能が劣化する
+  * 対象が配列ではなく、NodeListオブジェクトである場合、IE7などのレガシーブラウザでは影響が顕著
+
+## 配列などを順に処理する(for...of命令) (ES6)
+
+* 配列、オブジェクト(NodeList, argumentsなど)、イテレーター/ジェネレータ(列挙可能なオブジェクト)
+  ```javascript
+  for (仮変数 of 列挙可能なオブジェクト) {
+    ループ内で実行する命令
+  }
+  ```
+  ```javascript
+  var data = ['apple', 'orange', 'banana'];
+  Array.prototype.hoge = function() {}
+  for (var value of data) {
+    console.log(value);
+  }
+  // 結果：apple, orange, bananaを順に出力
+  ```
+  * for...in命令では仮変数にキー名(インデックス番号)が渡されていたのに対し、値を列挙している
+
+## 2.5.8 ループを途中でスキップ/中断(break/continue)
+
+### ネストされたループを一気に脱出する(ラベル構文)
+
+* 一度、積が30を超えたら、九九表の出力そのものを停止したい
+  ```javascript
+  kuku:
+  for (var i = 1; i < 10; i++) {
+    for (var j = 1; j < 10; j++) {
+      var k = i * j;
+      if (k > 30) {
+        break kuku;
+      }
+      document.write(k + '&nbsp');
+    }
+    document.write('<br>');
+  }
+  ```
+
+* ループ内でswitchを使う場合は要注意
+
+## 2.5.9 例外を処理する(try...catch...finally命令)
+
+* 呼び出し側に起因する処理では、例外の発生を完全に防ぐことはできない
+  ```javascript
+  try {
+    ...
+  } catch(例外情報を受け取る変数) {
+    例外が発生したときに実行される命令
+  } finally {
+    例外の有無にかかわらず、最終的に実行される命令
+  }
+  ```
+  ```javascript
+  var i = j;
+  try {
+    i = i * j;
+  } catch(e) {
+    // Errorオブジェクト
+    // j is not defined
+    console.log(e.message);
+  } finally {
+    console.log('処理は完了しました');
+  }
+  ```
+
+* 例外処理はオーバーヘッドが大きい
+  * ループ処理の中でtry..catchブロックを記述するのは避けるべき
+
+* 例外を発生させる
+  ```javascript
+  var x = 1;
+  var y = 0;
+
+  try {
+    if (y === 0) {
+      throw new Error('0で除算しようとしました。');
+    }
+    var z = x / y;
+  } catch(e) {
+    console.log(e.message);
+  }
+  ```
+  * throw 命令
+  ```javascript
+  throw new Error(エラーメッセージ)
+  ```
+
+* Errorオブジェクトの代わりに以下を使うことができる
+  * EvalError
+    * 不正なeval関数
+  * RangeError
+    * 指定された値が許容範囲を超えている
+  * SyntaxError
+    * 文法エラー
+  * TypeError
+    * 指定された値が期待されたデータ型ではない
+  * URIError
+    * 不正内URI
+
+## 2.5.10 JavaScriptの危険な構文を禁止する(Strictモード) (IE9)
+
+* 仕様としては存在するが、現在では安全性や効率面で利用すべきでない構文が存在する
+  * 以前は、落とし穴を開発者が学んで、避けるようにコーディングしなければならなかった
+  * Strictモードは、JavaScriptの落とし穴を検出し、エラーとして通知してくれる仕組み
+
+* Strictモードによる制限(変数)
+  * var命令の省略を制限
+  * 将来的に追加予定のキーワードを予約語に追加
+  * 引数/プロパティ名の重複を禁止
+  * undefined/nullへの代入禁止
+
+* Strictモードによる制限(命令)
+  * with命令の利用を禁止
+  * arguments.calleeプロパティへのアクセスを禁止
+  * eval命令で宣言された変数を、周囲のスコープに拡散しない
+
+* メリット
+  * 非Strictモードのコードよりも高速に動作する場合がある
+  * 将来のJavaScriptで変更される点を禁止することで、今後の移行が簡単になる
+  * JavaScriptの「べからず」を理解する手掛かりになる
+
+* スクリプトの先頭、もしくは関数の先頭に追加
+  ```javascript
+  // "use strict"; でも可能
+  'use strict';
+  // 任意のコード
+  ```
+  ```javascript
+  function hoge() {
+    'use strict';
+    // 任意のコード
+  }
+  ```
+
+* Strictモードの対応ブラウザ
+  * IEではバージョン10以降でのみ対応
+  * 新規の開発では、できるだけStrictモードを有効にすることが推奨される
+
+* 外部スクリプトを非同期にロードする(async/defer属性)
+  * 一般的なブラウザではスクリプトの読み込み/実行が完了するまで、以降のコンテンツを描画しない
+  * body閉じタグの直前に記述する以外に、モダンブラウザが対象ならばasync属性(HTML5)を利用してもよい
+  ```html
+  <script src="lib.js" async></script>
+  <script src="app.js" async></script>
+  ```
+  * ただし、実行順序が保証されない
+    * asyncの代わりにdefer属性を指定するとよい
+    * スクリプトの実行を文書の解析終了後まで遅延させる
