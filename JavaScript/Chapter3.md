@@ -948,8 +948,115 @@ var d = new Date(1480849635500);
 
 ## 3.7 JavaScriptプログラムでよく利用する機能を提供する(Globalオブジェクト)
 
-## 3.7.1 Numberオブジェクトに移動したメソッド
+* Globalオブジェクト
+  + インスタンス化することはできない
+  ```javascript
+  var g = new Global();
+  ```
+  + 配下のメンバーを呼び出せるわけでもない
+  ```javascript
+  Global.メソッド名(...);
+  ```
+  + グローバル変数/グローバル関数を管理するため、JSが自動的に生成する便宜的なオブジェクト
+  + グローバル変数/グローバル関数は自分自身でも定義可能、JavaScriptでもいくつか提供している
+  ```javascript
+  変数名
+  // Global.～と書く必要なし
+  関数名(引数, ...)
+  ```
+
+## 3.7.1 Numberオブジェクトに移動したメソッド(ES6)
+
+* 一部がNubmerオブジェクトに移動した
+  + isFinite
+  + isNaN
+  + parseFloat
+  + parseInt
+
+* 今後はNumberを優先して使用するべき
+  + isFinite, isNaNは挙動が変化した
+  ```javascript
+  // true > 引数を数値に変換してから判定する
+  console.log(isNaN('hoge'));
+  // false > 引数は数値型であり、かつ、NaNであるものだけをtrueとする(より厳密に判定できる)
+  console.log(Number.isNaN('hoge'));
+  // Number.isFinite/Global.isFiniteも同様
+  ```
+
 
 ## 3.7.2 クエリ情報をエスケープ処理する(encodeURI/encodeURIComponent関数)
 
+* URLのクエリ情報は簡易である分、渡せる情報にはいくつかの制限がある
+  + 区切り文字`&`, ハッシュ`#`, 空白, マルチバイト文字は使用できない
+  + 使用する場合、あらかじめ無害な文字列(%xx)に変換する必要がある > `URIエンコード`
+    - `encodeURI/encodeURIComponent`はそのエスケープ処理を行う
+    - エンコード対象が異なる
+
+* encodeURI/encodeURIComponent
+  ```javascript
+  var str = '!"#$%&()+-*/@~_|;:,.';
+
+  // 結果：!%22#$%25&()+-*/@~_%7C;:,.
+  console.log(encodeURI(str));
+  // 結果：!%22%23%24%25%26()%2B-*%2B-*%2F%40~_%7C%3B%3A%2C.
+  console.log(encodeURIComponent(str));
+  // encodeURIComponent関数では「#」「$」「+」「/」「@」「;」「:」「,」等も変換されているが、
+  // encodeURI関数では変換されない
+  // 「!」「(」「)」「-」「*」「~」「_」「.」などはいずれも変換されない
+  ```
+  + escape関数もあるが、特別な理由(下位互換性を維持したい等)がない限り私用しない
+    - プラットフォーム/ブラウザーなどで得られる結果が異なる
+  + decodeXXXで元の文字列にデコードできる
+
 ## 3.7.3 動的に生成したスクリプトを実行する(eval関数)
+
+* eval関数
+  + 与えられた文字列をJavaScriptのコードとして評価/実行する
+  ```javascript
+  var str = 'console.log("eval関数")';
+  // 「eval関数」とログに出力
+  eval(str);
+  ```
+  + 乱用は避けるべき
+    - 第3者が任意のスクリプトを自由に実行できてしまう可能性がある(セキュリティリスク)
+    - 通常のコードを実行するよりも、処理速度が遅い(パフォーマンスの劣化)
+
+* 一般的な用途であれば、eval関数にはより安全な代替案がある
+  + 例) 変数(式)の値によってアクセスべきプロパティを切り替えたい
+    ```javascript
+    var obj = {hoge: 1, foo: 2};
+    var prop = 'hoge';
+    eval('console.log(obj.' + prop + ')'); // 1
+    ```
+    ```javascript
+    console.log(obj[prop]);
+    ```
+  + '{"hoge":1,"foo":2}'のようなデータ文字列を取り込むようなケース
+    ```javascript
+    // 以下のようなコードを書く必要はない
+    eval('var data = {"hoge":1, "foo":2}');
+    console.log(data.hoge);
+
+    // JSON.parseを使う
+    var data = JSON.parse('{"hoge":1,"foo":2}');
+    console.log(data.hoge); // 1
+    ```
+  + データ変換を目的とするならば、よりスマートにより安全に処理できる
+
+* JSON(JavaScript Object Notation)
+  + JavaScriptのオブジェクトリテラル形式に準じたデータフォーマット
+    - JavaScriptとは親和性が高く、Ajax通信などではよく利用される
+  + 完全には一致していないので注意
+    - プロパティ名はダブルクォートでくくらなければならない
+    - 配列/オブジェクト配下の要素末尾はカンマで終わってはいけない
+    - ゼロ始まりの数値は禁止
+  + JavaScriptの配列/オブジェクトをJSON文字列に変換(JSON.stringify)
+    ```javascript
+    var obj = {hoge:1, foo:2};
+    // {"hoge":1, "foo":2}
+    console.log(JSON.stringify(obj))
+    ```
+
+* eval関数を利用したくなるような局面ではたいがい代替策が用意されている
+  - 他の方法を検討するべき
+  - eval is evil(eval関数は邪悪)
