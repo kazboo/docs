@@ -377,3 +377,28 @@ const TableBody = p => {
 * このフォームの目的
     + フォーム内のフィールドが変更されるたびにFormの状態を更新すること
     + 送信すると、そのすべてのデータがApp状態に渡され、それによってTableが更新される
+
+## Pulling in API Data
+
+* Reactの一般的な使い方として、APIからデータを取り込むことがあげられる
+
+* Wikipedia APIを使用する
+
+* Chromeプラグインの`JSONView`を使用する
+
+* `JavaScript's build-in Fetch`を使う
+
+* `React lifecycle method`
+    + `componentDidMout()
+        - コンポーネントがDOMツリーにマウント/挿入された後呼び出される
+    + `Lifecycle`は、Reactでメソッドが呼び出される順番
+    + `Mounting`とは、DOMに挿入されているアイテムのこと
+
+## Building and Deploying a React App
+
+```bash
+npm run build
+```
+
+* buildフォルダが作成される
+    + 任意の場所に配置すれば完了(今回はLive Serverを使った)
