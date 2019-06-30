@@ -355,3 +355,273 @@ console.log(scope); // Grobal Variable
         - 前述通り、原則としてFunctionコンストラクタを利用しないことを前提
     
 * 関数3つの記法は必ずしも意味的に等価でない
+
+## 引数の様々な記法
+
+* ES2015で引数に関する仕様が大きく改善している
+
+### JavaScriptは引数の数をチェックしない
+
+* 全て正しく動作する
+    ```javascript
+    function showMsg(value) {
+        console.log(value);
+    }
+
+    showMsg(); // (1) undefined
+    showMsg('Yamada'); // (2) Yamada
+    showMsg('Yamada', 'Suzuki'); // (3) Yamada
+    ```
+    + `与える引数の数が、関数側で要求する数と異なる場合も、これをチェックしない
+    + (3)は切り捨てられるわけではない
+        - 内部的には引数情報の１つとして保持されているため、後から利用できる
+
+* 引数情報を管理するのが`arguments`オブジェクト
+    + 関数配下でのみ利用できる特別なオブジェクト
+    ```txt
+    |No.|value    |arguments object   |
+    |1  |undefined|                   |
+    |2  |Yamada   |[1]Yamada          |
+    |3  |Yamada   |[1]Yamada [2]Suzuki|
+    ```
+    + 関数呼び出しのタイミングで生成され、呼び出し元から与えられた引数の値を保持する
+    ```javascript
+    // 引数の数をチェックすることができる
+    function showMsg(value) {
+        if (arguments.length !== 1){
+            throw new Error('引数の数が間違っています');
+        }
+        console.log(value);
+    }
+
+    try {
+        showMsg('Yamada', 'Suzuki');
+    } catch(e) {
+        window.alert(e.message);
+    }
+    ```
+
+* `arguments`と`Arguments`、どちらが正しい？
+    + argumentsオブジェクトの実態
+        - `Argumentsオブジェクトを参照するargumentsプロパティ`
+    + Arguments.length とは記述できない
+    + Argumentsオブジェクトは暗黙的に関数内部で生成されるもの(開発者は意識することがない)
+
+* 引数のデフォルト値を設定する
+    ```javascript
+    function getTriangle(base, height) {
+        // JSで構文は用意されていない
+        if (base === undefined) base = 1;
+        if (height === undefined) height = 1;
+        return base * height / 2;
+    }
+
+    console.log(getTriangle(5)); // 2.5
+    ```
+
+### 可変長引数の関数を定義する
+
+* argumentsオブジェクトの用途の１つ
+
+* 可変長引数の関数
+    + 引数の個数があらかじめきまっていない関数
+    ```javascript
+    function sum() {
+        var result = 0;
+
+        for (var i = 0, len = arguments.length; i < len; i++) {
+            // argumentsオブジェクトからi番目の要素を取り出す
+            var tmp = arguments[i];
+            // 要素値が数値であるか確認
+            if (typeof tmp !== 'number') {
+                throw new Error('引数が数値ではありません:' + tmp);
+            }
+            result += tmp;
+        }
+        return result;
+    }
+
+    try {
+        console.log(sum(1, 3, 5, 7, 9)); // 25
+    } catch(e) {
+        window.alert(e.message);
+    }
+    ```
+
+### 明示的に宣言された引数と可変長引数を混在させる
+
+* 例
+    ```javascript
+    function printf(format) {
+        for (var i = 0, len = arguments.length; i < len; i++) {
+            console.log(`arguments[${ i }]=${ arguments[i] }`);
+            var pattern = new RegExp('\\{' + (i - 1) + '\\}', 'g');
+            console.log(pattern);
+            format = format.replace(pattern, arguments[i]);
+        }
+        console.log(format);
+    }
+    // arguments[0]=こんにちは、{0}さん。私は{1}です。
+    // arguments[1]=掛谷
+    // arguments[2]=山田
+    printf('こんにちは、{0}さん。私は{1}です。', '掛谷', '山田');
+    ```
+
+* argumentsオブジェクトには以下の順ですべての引数が格納される
+    1. 明示的に宣言された引数
+    1. 可変長引数
+
+* `可変長引数だけが、argumentsオブジェクトで管理されるわけではない`
+
+* `無名引数は必要最小限に`
+    + コードの可読性という観点から、あまり推奨できない
+    + インデックス管理より、名前で管理する引数のほうが直感的
+    + 内容や個数があらかじめ想定できる引数についてはできるだけ明示的に
+
+* 以下のように、仮の名前を可変長引数につけておくのもよい
+    ```javascript
+    // あくまで可変長引数を指定できることを理解できるようにした、便宜的なもの
+    function printf(format, var_args) {...}
+    ```
+
+### 名前付き引数でコードを読みやすくする
+
+* 名前付き引数とは、次のように呼び出し時に名前を明示的にしてできる引数のこと
+    ```javascript
+    getTriangle({base:5, height:4})
+    ```
+
+* メリット
+    + 引数が多くなっても、コードの意味が分かりやすい
+    + 省略可能な引数をスマートに表現できる
+    + 引数の順番を自由に変更できる
+
+* 以下のケースで有効
+    + そもそも引数の数が多い
+    + 省略可能な引数が多く、省略パターンにも様々な組み合わせがある
+
+* 実装方法
+    ```javascript
+    function getTriangle(args) {
+        if (args.base === undefined)
+            args.base = 1;
+        if (args.height === undefined)
+            args.height = 1;
+    
+        return args.base * args.height / 2;
+    }
+
+    console.log(getTriangle({base:5, height:4})); // 10
+    ```
+    + `引数をオブジェクトリテラルで受け取っているだけ`
+
+## ES2015における引数の記法
+
+* ES2015では引数の仕様が大きく変わった
+    + 引数のデフォルト値
+    + 可変長引数
+    + 名前付き引数
+
+* argumentsオブジェクトがほぼ不要となり、JavaScript固有の冗長なコードからも解放される
+
+### 引数のデフォルト値
+
+```javascript
+function getTriangle(base = 1, height = 1) {
+    return base * height / 2;
+}
+
+console.log(getTriangle(5)); // 2.5
+```
+
+* 他の引数、関数の結果などを指定することもできる
+    ```javascript
+    function multi(a, b = a) {
+        return a * b;
+    }
+    console.log(multi(10, 5)); // 50
+    console.log(multi(3)); // 9
+    ```
+    + 自身より前に定義されたものだけ
+
+* `注意点`
+    + デフォルト値が適用される場合、されない場合
+        - 適用されるのは引数が明示的に渡されなかった場合だけ
+        ```javascript
+        function getTriangle(base = 1, height = 1) {...}
+        console.log(getTriangle(5, null)); // 0
+        ```
+        - undefinedは例外で、デフォルト値が適用される
+    + デフォルト値を持つ仮引数は、引数リストの末尾に(構文規則ではない)
+        - 挙動がわかりにくく、バグの原因にもなる
+        ```javascript
+        function getTriangle(base = 1, height) {...}
+        console.log(getTriangle(10)); // 10 x undefined / 2 でNaN
+        ```
+
+* 必須の引数を宣言する
+    ```javascript
+    function required() {
+        throw new Error('value is not specified.');
+    }
+
+    function hoge(value = required()) {
+        return value;
+    }
+
+    hoge(); // Error: value is not specified.
+    ```
+
+### 可変長引数の関数を定義する(ES2015)
+
+* 仮引数の前に`...`を付与する
+    + 英語では`Rest Parameter`と表記される
+    + 渡された任意個数の引数を配列としてまとめて受け取る
+    ```javascript
+    function sum(...nums) {
+        let result = 0;
+        for (let num of nums) {
+            if (typeof num !== 'number') {
+                throw new Error('数値ではありません' + num);
+            }
+            result += num;
+        }
+        return result;
+    }
+
+    try {
+        console.log(sum(1, 3, 5, 7, 9));
+    } catch(e) {
+        window.alert(e.message);
+    }
+    ```
+    + 関数が可変長引数を受け取ることがわかりやすい
+    + 全ての配列操作が可能(真正のArrayオブジェクト)
+        - `arguments`オブジェクトの実体はArrayオブジェクトではない
+
+### ...演算子による引数の展開(ES2015)
+
+* `...`演算子は実引数で利用することで個々の値に展開できる
+    ```javascript
+    console.log(Math.max(15, -3, 78, 1)); // 78
+    console.log(Math.max([15, -3, 78, 1])); // NaN
+
+    // ES2015以前(applyメソッドが必要)
+    console.log(Math.max.apply(null, [15, -3, 78, 1])); // 78
+
+    // ES2015以降
+    console.log(Math.max(...[15, -3, 78, 1])); // 78
+    ```
+
+### 名前付き引数でコードを読みやすくする(ES2015)
+
+* ES2015では分割代入(2.4.2)を利用することでシンプルに表現できる
+    ```javascript
+    function getTriangle({base = 1, height = 1}) {
+        return base * height / 2;
+    }
+
+    console.log(getTriangle({base:5, height:4}));
+    console.log(getTriangle({height:4}));
+    ```
+    
