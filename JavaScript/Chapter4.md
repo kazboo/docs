@@ -625,3 +625,248 @@ console.log(getTriangle(5)); // 2.5
     console.log(getTriangle({height:4}));
     ```
     
+## 4.6 関数呼び出しと戻り値
+
+### 4.6.1 複数の戻り値を個別の変数に代入する(ES2015)
+
+* 配列/オブジェクトとして１つにまとめて返す
+    ```javascript
+    function getMaxAndMin(...nums) {
+        return [Math.max(...numbs), Math.min(...nums)];
+    }
+
+    let result = getMaxAndMin(10, 35, -5, 78, 0);
+    console.log(result); // [78, -5]
+
+    // 分割代入の利用：意味のある名前をつけわかりやすくする
+    let [max, min] = getMaxAndMin(10, 35, -5, 78, 0);
+    console.log(max);
+    console.log(min);
+
+    // 片方不要な場合
+    let [, min] = getMaxAndMin(10, 35, -5, 78, 0);
+    ```
+
+### 4.6.2 関数自身を再帰的に呼び出す(再帰関数)
+
+* 自然数nの階乗を求めるためのユーザー定義関数
+    ```javascript
+    function factorial(n) {
+        if (n != 0)
+            return n * factorial(n - 1);
+        
+        return 1;
+    }
+    ```
+
+### 4.6.3 関数の引数も関数(高階関数)
+
+* JavaScriptの関数はデータ型の一種
+    + 関数を引数、戻り値として扱う関数を`高階関数`という
+        - forEach, map, filter
+    ```javascript
+    function arrayWalk(data, f) {
+        for (var key in data) {
+            f(data[key], key);
+        }
+    }
+
+    function showElement(value, key) {
+        console.log(key + ' : ' + value);
+    }
+
+    var ary = [1, 2, 4, 8, 16];
+    arrayWalk(ary, showElement);
+    ```
+    + ユーザー定義関数(具体的な処理内容)を自由に差し替えることが最大の目的
+
+* コールバック関数とは
+    + 呼び出し先の関数の中で呼び出される関数のこと
+    + 後で呼び出されるべき処理
+
+### 4.6.4 使い捨ての関数は匿名関数で
+
+* 匿名関数は高階関数と密接な関係を持っている
+    + 高階関数においては、引数として与えられる関数が`その場限り`でしか利用されないことがよくある
+    + その場合、匿名関数(関数リテラル)として記述したほうがコードがシンプルになる
+    ```javascript
+    function arrayWalk(data, f) {
+        for (var key in data) {
+            f(data[key], key);
+        }
+    }
+
+    var ary = [1, 2, 4, 8, 16];
+    arrayWalk(
+        ary,
+        function(value, key) {
+            console.log(key + ':' + value);
+        }
+    );
+    ```
+    + 呼び出し元との関係がわかりやすくなる
+    + 意図せぬ名前の重複を回避できる
+
+## 4.7 高度な関数のテーマ
+
+### 4.7.1 テンプレート文字列をアプリ仕様にカスタマイズする(タグ付きテンプレート文字列) ES2015
+
+* テンプレート文字列(``～``)を利用することで文字列リテラルに変数を埋め込める
+    + 変数をそのまま埋め込むだけでなく、なにかしら加工したうえで埋め込みたい
+        - `<, >` を `&lt; ,&gt;`に置き換えるエスケープ等
+    
+* `タグ付きテンプレート(Tagged template strings)`
+    ```javascript
+    function escapeHtml(str) {
+        if(!str) return '';
+        str = str.replace(/&/g, '&amp;');
+        str = str.replace(/</g, '&lt;');
+        str = str.replace(/>/g, '&gt;');
+        str = str.replace(/"/g, '&quot;');
+        str = str.replace(/'/g, '&#39;');
+        return str;
+    }
+
+    /**
+     * templates:
+     *   [0]Hello,
+     *   [1]!
+     * values:
+     *   [0]name (=<"Mario" & \'Luigi\'>)
+     */
+    function e(templates, ...values) {
+        let result = '';
+        for (let i = 0, len = templates.length; i < len; i++) {
+            result += templates[i] + escapeHtml(values[i]);
+        }
+        return result;
+    }
+
+    let name = '<"Mario" & \&Luigi\>';
+    console.log(e`Hello, ${ name } !`);
+    // Hello, &lt;&quot;Mario&quot; &amp; &#39;Luigi&#39;&gt;!
+    ```
+    + 実体は単なる関数呼び出しに過ぎない
+        ```javascript
+        関数名`テンプレート文字列`
+        ```
+    + 以下の条件を満たしていなければいけない
+        - 引数として以下を受け取ること
+            - テンプレート文字列(分解したもの)
+            - 埋め込む変数(可変長引数)
+        - 戻り値として加工済みの文字列を返すこと
+
+### 4.7.2 変数はどのような順番で解決されるか(スコープチェーン)
+
+* Globalオブジェクト
+    + JavaScriptではスクリプトの実行時に、内部的にGlobalオブジェクトを生成する
+    + 基本的にプログラマが意識する必要がない
+    + グローバル変数/関数を管理するための`便宜的`なオブジェクト
+    + グローバル変数/関数はGlobalオブジェクトのプロパティやメソッドであると言い換えられる
+
+* ローカル変数
+    + `Activation Object(Callオブジェクト)のプロパティ`である
+
+* Callオブジェクト
+    + 関数呼び出しの都度、内部的に自動生成されるオブジェクト
+    + 関数内で定義されたローカル変数を管理するための`便宜的`なオブジェクト
+    + argumentsプロパティもCallオブジェクトのプロパティ
+
+* 変数が解決されるメカニズムが見えてくる
+    + `スコープチェーン`
+        - Globalオブジェクト、Callオブジェクトを生成の順に連結したリストのことを言う
+        ```txt
+        [グローバルオブジェクト]
+        +                          スクリプト全体
+         ++[Callオブジェクト]++
+                              +    関数内部
+         function xxxxx() {    +                 
+                              [Callオブジェクト]
+                                   入れ子となった関数の内部
+
+                                  function xxxxx() {
+
+                                  }
+         }
+        ```
+        - JavaScriptではそれぞれのスコープ単位にGlobalオブジェクト、Callオブジェクトが生成される
+
+* JavaScriptでは、子のスコープチェーンの先頭に位置するオブジェクトから順にプロパティを検索する
+    + マッチするプロパティが初めて見つかったところで、その値を採用している
+    ```javascript
+    var y = 'Global';
+    function outerFunc() {
+        var y = 'Local Outer';
+
+        function innerFunc() {
+            var z = 'Local Inner';
+            console.log(z);
+            console.log(y);
+            console.log(x);
+        }
+        innerFunc();
+    }
+    outerFunc();
+    ```
+    + 先頭から、内部のCallオブジェクト、外部のCallオブジェクト、Globalオブジェクト
+
+### 4.7.3 その振る舞いオブジェクトのごとし(クロージャ)
+
+* クロージャ
+    + ローカル変数を参照している関数内関数のこと
+    ```javascript
+    // 引数や戻り値が関数である関数のことを「高階関数」
+    function closure(init) {
+        var counter = init;
+
+        return function() {
+            return ++counter;
+        }
+    }
+
+    var myClosure = closure(1);
+    console.log(myClosure()); // 2
+    console.log(myClosure()); // 3
+    console.log(myClosure()); // 4
+    ```
+    + closure関数から返された匿名関数がローカル関数counterを参照し続けている
+    + そのため、closure関数の終了後もローカル変数counterは保持され続ける
+    + 以下のスコープチェーンが匿名関数が有効である間は保持される
+        - 匿名関数を表すCallオブジェクト
+        - closure関数のCallオブジェクト
+        - グローバルオブジェクト
+
+* クロージャは`記憶領域を提供する仕組み`ともいえる
+    
+* 呼び出しごとに生成されたCallオブジェクトは別物
+    + それぞれのCallオブジェクトに属するローカル変数counterも別物
+    ```javascript
+    function closure(init) {
+        var counter = init;
+
+        return function() {
+            return ++counter;
+        }
+    }
+
+    var myClosure1 = closure(1);
+    var myClosure2 = closure(100);
+
+    console.log(myClosure1()); // 2
+    console.log(myClosure2()); // 101
+    console.log(myClosure1()); // 3
+    console.log(myClosure2()); // 102
+    ```
+    ```txt
+            [Global]-(myClosure1, myClosure2)
+            +       +
+           +         +
+       [Call1-1]  [Call2-1]
+        + cnt=1         +  cnt = 100
+       +                 +
+    [Call1-2]       [Call2-2]
+    関数リテラル     関数リテラル
+    (クロージャ)     (クロージャ)
+    ```
+    + Callオブジェクトは関数呼び出しのたびに生成される
+
