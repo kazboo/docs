@@ -284,7 +284,130 @@ console.log(mem1.gender + '|' + mem2.gender); // Man|Woman
 ```
 
 * 通常は、以下のように使い分け
-    + プロパティの宣言
-        - コンストラクタで
-    + メソッドの宣言
-        - プロトタイプで
+    + プロパティの宣言: `コンストラクタで`
+    + メソッドの宣言: `プロトタイプで`
+
+### プロトタイプオブジェクトの不思議(2) - プロパティの削除 -
+
+```javascript
+var Member = function() {};
+Member.prototype.sex = 'man';
+
+var mem1 = new Member();
+var mem2 = new Member();
+
+console.log(mem1.sex + '|' + mem2.sex); // man|man
+mem2.sex = 'women';
+console.log(mem1.sex + '|' + mem2.sex); // man|woman
+
+// インスタンスmem1のプロパティを削除しようとするが、mem1はsexプロパティを持たない
+// delete演算子は何もしない(=プロトタイプまでさかのぼって削除することはない)
+delete mem1.sex
+// mem2は地自身でsexプロパティを持つのでdelete演算子はこれを削除する
+delete mem2.sex
+// mem1は暗黙の参照をたどって、プロトタイプオブジェクトのsexプロパティを返す
+console.log(mem1.sex + '|' + mem2.sex); // man|man
+```
+
+* `インスタンス側でのメンバーの追加、削除といった操作がプロトタイプオブジェクトにまで影響を及ぼすことはない`
+
+* プロトタイプオブジェクトのメンバーを削除
+    ```javascript
+    delete Member.prototype.sex
+    ```
+    + `全てのインスタンスのsexプロパティが削除されてしまう`
+
+* プロトタイプで定義されたメンバーを`インスタンス単位で`削除したい場合、定数undefinedを用いる方法がある
+    ```javascript
+    var Member = function() { };
+
+    Member.prototype.sex = 'man';
+
+    var mem1 = new Member();
+    var mem2 = new Member();
+    console.log(mem1.sex + '|' + mem2.sex); // man|man
+    mem2.sex = undefined;
+    console.log(mem1.sex + '|' + mem2.sex); // man|undefined
+    ```
+
+    + あくまでメンバーの存在自体はそのままに、値を強制的に未定義としているにすぎない
+    + `for ... in` では表示されることになる
+
+### 5.2.5 オブジェクトリテラルでプロトタイプを定義する
+
+* ドット演算子を使ってプロトタイプにメンバーを追加する方法は正しい構文だが、メンバーが多くなってくるとコードが冗長になり、好ましくない
+    + どこからどこまでが同じオブジェクトのメンバー定義であるのか、一見して見えにくい可読性の問題
+
+* オブジェクトのリテラル表現を使う
+    ```javascript
+    var Member = function(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    };
+
+    Member.prototype.getName = function() {
+        return this.lastName + '' + this.firstName;
+    };
+
+    Member.prototype.toString = function() {
+        return this.lastName + this.firstName;
+    };
+    ```
+    ```javascript
+    var Member = function(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    Member.prototype = {
+        getname:function() {
+            return this.lastName + '' + this.firstName;
+        },
+        toString:function() {
+            return this.lastName + this.firstName;
+        }
+    };
+    ```
+
+* メリット
+    + Member.prototype.~ のような記述を最小限に抑えられる
+    + 結果、オブジェクト名に変更があった場合にも影響箇所を限定できる
+    + 同一オブジェクトのメンバー定義が1つのブロックに収められているため可読性が向上する
+
+* プロトタイプ定義する場合にはリテラル表現を利用することが推奨される
+
+### 5.2.6 静的プロパティ/静的メソッドを定義する
+
+* 静的プロパティ/静的メソッド
+    + インスタンスを生成しなくてもオブジェクトから直接呼び出せるプロパティ/メソッド
+
+* プロトタイプオブジェクトには登録できない
+    + プロトタイプオブジェクトはあくまで`インスタンスから暗黙的に参照されることを目的としたオブジェクト`
+
+```javascript
+var Area = function() {};
+
+// 静的プロパティversion
+Area.version = '1.0';
+
+// 静的メソッドtriangle
+Area.triangle = function(base, height) {
+    return base * height / 2;
+};
+
+// 静的メソッドdiamond
+Area.diamond = function(width, height) {
+    return width * height /2;
+};
+```
+
+* 静的プロパティ/静的メソッドを定義するときの2つの注意点
+    + 静的プロパティは、基本的に読み取り専用の用途で
+        - クラス単位で保有される情報
+        - そのスクリプト内のすべてに変更が反映されてしまう
+    + 静的メソッドの中では、thisキーワードは使えない(使っても意味がない)
+        - インスタンスメソッドの中でのthisキーワードはインスタンス自身を表す
+        - `静的メソッドの中ではコンストラクタ(関数オブジェクト)を表す`
+        - `静的メソッドからインスタンスプロパティの値にアクセスすることはできない`ので注意
+    
+* グローバル変数/関数はできるだけ減らすこと
+    + そのために関連する機能や情報は静的メンバーにまとめること
