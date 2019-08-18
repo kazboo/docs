@@ -33,4 +33,4 @@
 
 * [Chrome RDP for Google Cloud Platform](https://google.qwiklabs.com/focuses/560?locale=ja&parent=catalog&qlcampaign=7c-jpac-20)拡張機能
     + ブラウザから直接RDPで接続できる
-    + もちろん自身のWindows空のアクセスも可能
+    + もちろん自身のWindowsからのアクセスも可能

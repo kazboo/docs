@@ -120,3 +120,5 @@
     ```
 
 * [自身のマシンで使用する場合](https://cloud.google.com/sdk/gcloud/)
+
+* 自分のマシンで gcloud を実行した場合は、セッション間で config 設定が維持されます。Cloud Shell では、新しいセッションまたは再接続のたびに設定し直す必要があります。
